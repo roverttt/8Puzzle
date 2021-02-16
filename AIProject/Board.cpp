@@ -30,57 +30,109 @@ Board::Board(int tile1val, int tile2val, int tile3val, int tile4val, int tile5va
 	this->solution[7].set_pos(2, 0, 7);
 	this->solution[8].set_pos(2, 1, 8);
 
-	this->solutionBoard[0]
-};
+	this->solutionBoard[0];
+}
 
 void Board::swap_pos(Position pos1, Position pos2) {
-	this->swapTempPosition = pos1;
-	this->currentBoard[pos1.get_tile_x_value][pos1.get_tile_y_value] = pos2;
-	this->currentBoard[pos2.get_tile_x_value][pos2.get_tile_y_value] = swapTempPosition;
+	int swapValue = pos1.get_tile_value();
+	this->swapTempPosition = this->currentBoard[pos1.get_tile_x_value()][pos1.get_tile_y_value()];
+	this->currentBoard[pos1.get_tile_x_value()][pos1.get_tile_y_value()] = pos2;
+	this->currentBoard[pos2.get_tile_x_value()][pos2.get_tile_y_value()] = swapTempPosition;
 }
 
-int Board::move_up(Position blank_tile) {
-	if (blank_tile.get_tile_x_value > 0) {
-		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value - 1)][(blank_tile.get_tile_y_value)]);
-		return 0;
+Position Board::move_up(Position blank_tile) {
+	if (blank_tile.get_tile_x_value() > 0) {
+		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value() - 1)][(blank_tile.get_tile_y_value())]);
+		return this->currentBoard[(blank_tile.get_tile_x_value() - 1)][(blank_tile.get_tile_y_value())];
 	}
 	else {
-		return -1;
+		return Position();
 	}
 }
-int Board::move_down(Position blank_tile) {
-	if (blank_tile.get_tile_x_value < 2) {
-		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value + 1)][(blank_tile.get_tile_y_value)]);
-		return 0;
+Position Board::move_down(Position blank_tile) {
+	if (blank_tile.get_tile_x_value() < 2) {
+		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value() + 1)][(blank_tile.get_tile_y_value())]);
+		return this->currentBoard[(blank_tile.get_tile_x_value() + 1)][(blank_tile.get_tile_y_value())];
 	}
 	else {
-		return -1;
+		return Position();
 	}
 }
-int Board::move_left(Position blank_tile) {
-	if (blank_tile.get_tile_y_value > 0) {
-		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value)][(blank_tile.get_tile_y_value - 1)]);
-		return 0;
+Position Board::move_left(Position blank_tile) {
+	if (blank_tile.get_tile_y_value() > 0) {
+		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value())][(blank_tile.get_tile_y_value() - 1)]);
+		return this->currentBoard[(blank_tile.get_tile_x_value())][(blank_tile.get_tile_y_value() - 1)];
 	}
 	else {
-		return -1;
+		return Position();
 	}
 }
-int Board::move_right(Position blank_tile) {
-	if (blank_tile.get_tile_y_value < 2) {
-		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value - 1)][(blank_tile.get_tile_y_value + 1)]);
-		return 0;
+Position Board::move_right(Position blank_tile) {
+	if (blank_tile.get_tile_y_value() < 2) {
+		this->swap_pos(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value() - 1)][(blank_tile.get_tile_y_value() + 1)]);
+		return this->currentBoard[(blank_tile.get_tile_x_value() - 1)][(blank_tile.get_tile_y_value() + 1)];
 	}
 	else {
-		return -1;
+		return Position();
 	}
 }
 void Board::print_top_row() {
-	cout << this->currentBoard[0] << "\n";
+	for (Position positionInRow : currentBoard[0])
+	{
+		cout << positionInRow.get_tile_value() << " ";
+	}
+	cout << "\n";
 }
 void Board::print_mid_row() {
-	cout << this->currentBoard[0] << "\n";
+	for (Position positionInRow : currentBoard[1])
+	{
+		cout << positionInRow.get_tile_value() << " ";
+	}
+	cout << "\n";
 }
 void Board::print_bottom_row() {
-	cout << this->currentBoard[0] << "\n";
+	for (Position positionInRow : currentBoard[2])
+	{
+		cout << positionInRow.get_tile_value() << " ";
+	}
+	cout << "\n";
+}
+
+Position Board::get_blank() {
+	int flag = 0;
+	Position blank;
+	for (Position positionInRow : currentBoard[0]) {
+		if (positionInRow.get_tile_value() == 0) {
+			if (flag == 1) {
+				cout << "error 2 zero values on board" << "\n";
+				return blank;
+			}
+			blank = positionInRow;
+			flag = 1;
+		}
+	}
+	for (Position positionInRow : currentBoard[1]) {
+		if (positionInRow.get_tile_value() == 0) {
+			if (flag == 1) {
+				cout << "error 2 zero values on board" << "\n";
+				return blank;
+			}
+			blank = positionInRow;
+			flag = 1;
+		}
+	}
+	for (Position positionInRow : currentBoard[2]) {
+		if (positionInRow.get_tile_value() == 0) {
+			if (flag == 1) {
+				cout << "error 2 zero values on board" << "\n";
+				return blank;
+			}
+			blank = positionInRow;
+			flag = 1;
+		}
+	}
+	if (flag == 0) {
+		cout << "no zero found on board" << "\n";
+	}
+	return blank;
 }
