@@ -20,6 +20,9 @@ void Position::set_pos(int x, int y, int value) {
 	this->y_pos = y;
 	this->val = value;
 }
+void Position::set_value(int value) {
+	this->val = value;
+}
 int Position::get_tile_x_value() {
 	return this->x_pos;
 }

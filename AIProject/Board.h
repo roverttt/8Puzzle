@@ -14,9 +14,8 @@ public:
 	void print_bottom_row();
 	Position get_blank();
 private:
-	void swap_pos(Position, Position);
+	void swap_board_values(Position, Position);
 	Position currentBoard[3][3];
-	Position solutionBoard[3][3];
 	Position solution[9];
-	Position swapTempPosition;
+	int swapTempValue;
 };
