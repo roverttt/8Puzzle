@@ -22,7 +22,7 @@ public:
 	Position get_blank();
 	Position get_position_of_board_tile(int, int);
 	int get_board_total_distance();
-	int get_num_correct_tiles();
+	int get_num_incorrect_tiles();
 	Direction get_last_move();
 	void print_board();
 	void set_last_move(Direction);

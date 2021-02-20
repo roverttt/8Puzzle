@@ -221,10 +221,10 @@ void Board::print_board() {
 	cout << endl;
 	return;
 }
-int Board::get_num_correct_tiles() {
+int Board::get_num_incorrect_tiles() {
 	int y = 0;
 	int x = 0;
-	int num_correct = 0;
+	int num_incorrect = 0;
 	bool double_break = false;
 	for (y = 0; y < HEIGHT; y++) {
 		for (x = 0; x < WIDTH; x++) {
@@ -232,18 +232,18 @@ int Board::get_num_correct_tiles() {
 				double_break = true;
 				break;
 			}
-			if (currentBoard[x][y].get_tile_value() == x + y*WIDTH + 1) {
-				num_correct++;
+			if (currentBoard[x][y].get_tile_value() != x + y*WIDTH + 1) {
+				num_incorrect++;
 			}
 		}
 		if (double_break == true) {
 			break;
 		}
 	}
-	if (currentBoard[WIDTH - 1][HEIGHT - 1].get_tile_value() == 0) {
-		num_correct++;
+	if (currentBoard[WIDTH - 1][HEIGHT - 1].get_tile_value() != 0) {
+		num_incorrect++;
 	}
-	return num_correct;
+	return num_incorrect;
 }
 
 Direction Board::get_last_move() {

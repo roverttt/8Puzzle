@@ -113,7 +113,7 @@ vector<Node> uniform_cost(vector<Node> nodes,vector<Node> nodes_from_expansion) 
 vector<Node> a_star_misplaced_tile(vector<Node> nodes, vector<Node> nodes_from_expansion) {
 
 	while (!nodes_from_expansion.empty()) {
-		int new_h_n = nodes_from_expansion.back().current_board.get_num_correct_tiles();
+		int new_h_n = nodes_from_expansion.back().current_board.get_num_incorrect_tiles();
 		nodes_from_expansion.back().h_n = new_h_n;
 		nodes.push_back(nodes_from_expansion.back());
 		if (nodes.size() > max_heap_size) {
