@@ -17,28 +17,6 @@ Board::Board(int board_values[HEIGHT][WIDTH]) {
 //{
 //
 //}
-Board::Board(int tile1val, int tile2val, int tile3val, int tile4val, int tile5val, int tile6val, int tile7val, int tile8val, int tile9val)
-{
-	this->currentBoard[0][0].set_pos(0, 0, tile1val);
-	this->currentBoard[0][1].set_pos(0, 1, tile2val);
-	this->currentBoard[0][2].set_pos(0, 2, tile3val);
-	this->currentBoard[1][0].set_pos(1, 0, tile4val);
-	this->currentBoard[1][1].set_pos(1, 1, tile5val);
-	this->currentBoard[1][2].set_pos(1, 2, tile6val);
-	this->currentBoard[2][0].set_pos(2, 0, tile7val);
-	this->currentBoard[2][1].set_pos(2, 1, tile8val);
-	this->currentBoard[2][2].set_pos(2, 2, tile9val);
-
-	solution[0].set_pos(2, 2, 0);
-	solution[1].set_pos(0, 0, 1);
-	solution[2].set_pos(1, 0, 2);
-	solution[3].set_pos(2, 0, 3);
-	solution[4].set_pos(0, 1, 4);
-	solution[5].set_pos(1, 1, 5);
-	solution[6].set_pos(2, 1, 6);
-	solution[7].set_pos(0, 2, 7);
-	solution[8].set_pos(1, 2, 8);
-}
 
 bool Board::can_move(Direction dir) {
 	Position blank_tile = get_blank();
@@ -102,7 +80,7 @@ Position Board::move_up(Position blank_tile) {
 	}
 }
 Position Board::move_down(Position blank_tile) {
-	if (blank_tile.get_tile_y_value() < 2) {
+	if (blank_tile.get_tile_y_value() < HEIGHT - 1) {
 		this->swap_board_values(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value())][(blank_tile.get_tile_y_value() + 1)]);
 		last_direction = DOWN;
 		return this->currentBoard[(blank_tile.get_tile_x_value())][(blank_tile.get_tile_y_value() + 1)];
@@ -122,7 +100,7 @@ Position Board::move_left(Position blank_tile) {
 	}
 }
 Position Board::move_right(Position blank_tile) {
-	if (blank_tile.get_tile_x_value() < 2) {
+	if (blank_tile.get_tile_x_value() < WIDTH - 1) {
 		this->swap_board_values(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value() + 1)][(blank_tile.get_tile_y_value())]);
 		last_direction = RIGHT;
 		return this->currentBoard[(blank_tile.get_tile_x_value() + 1)][(blank_tile.get_tile_y_value())];

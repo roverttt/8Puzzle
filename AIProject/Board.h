@@ -9,8 +9,6 @@ class Board {
 public:
 	Board() {};
 	Board(int board_values[HEIGHT][WIDTH]);
-//	Board(int initialValues[][3]);
-	Board(int, int, int, int, int, int, int, int, int);
 	Position move_up(Position);
 	Position move_down(Position);
 	Position move_left(Position);
@@ -29,7 +27,6 @@ public:
 private:
 	Direction last_direction = NONE;
 	void swap_board_values(Position, Position);
-	Position currentBoard[3][3];
-	Position solution[9];
+	Position currentBoard[HEIGHT][WIDTH];
 	int swapTempValue;
 };

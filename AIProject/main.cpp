@@ -141,11 +141,7 @@ vector<Node> a_star_manhattan_distance(vector<Node> nodes, vector<Node> nodes_fr
 
 
 int main() {
-	Board myBoard = Board(1, 1, 1, 1, 0, 1, 1, 1, 1);
-	Board Board_if_move_up(0, 0, 0, 0, 0, 0, 0, 0, 0);
-	Board Board_if_move_left(0, 0, 0, 0, 0, 0, 0, 0, 0);
-	Board Board_if_move_down(0, 0, 0, 0, 0, 0, 0, 0, 0);
-	Board Board_if_move_right(0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 	vector<Node> myheap;
 
 	//for each iteration
@@ -204,93 +200,5 @@ int main() {
 	}
 
 
-	if ((blankTile.get_tile_x_value() > 0) && (previousChoice != 1)) {	//if blank tile is not on the left column, calc dist for moving left
-		Board_if_move_left = myBoard;
-		Board_if_move_left.move_left(blankTile);
-		board_distance_of_choice = Board_if_move_left.get_board_total_distance();
-		choice = 1;
-	}
-	if ((blankTile.get_tile_x_value() < 2) && (previousChoice != 2)) {	//if blank tile is not on the right column, calc dist for moving right
-		Board_if_move_right = myBoard;
-		Board_if_move_right.move_right(blankTile);
-		dist_of_choice_right = Board_if_move_right.get_board_total_distance();
-		if (dist_of_choice_right < board_distance_of_choice) {
-			choice = 2;
-			board_distance_of_choice = dist_of_choice_right;
-		}
-	}
-	if ((blankTile.get_tile_y_value() > 0) && (previousChoice != 3)) {	//if blank tile is not on the top column, calc dist for moving up
-		Board_if_move_up = myBoard;
-		Board_if_move_up.move_up(blankTile);
-		dist_of_choice_up = Board_if_move_up.get_board_total_distance();
-		if (dist_of_choice_up < board_distance_of_choice) {
-			choice = 3;
-			board_distance_of_choice = dist_of_choice_up;
-		}
-	}
-	if ((blankTile.get_tile_y_value() < 2) && (previousChoice != 4)) {	//if blank tile is not on the bottom column, calc dist for moving down
-		Board_if_move_down = myBoard;
-		Board_if_move_down.move_down(blankTile);
-		dist_of_choice_down = Board_if_move_down.get_board_total_distance();
-		if (dist_of_choice_down < board_distance_of_choice) {
-			choice = 4;
-			board_distance_of_choice = dist_of_choice_down;
-		}
-	}
-
-	if (choice == 1) {
-		myBoard.move_left(blankTile);
-		blankTile.tile_update_left();
-	}
-	else if (choice == 2) {
-		myBoard.move_right(blankTile);
-		blankTile.tile_update_right();
-	}
-	else if (choice == 3) {
-		myBoard.move_up(blankTile);
-		blankTile.tile_update_up();
-	}
-	else if (choice == 4) {
-		myBoard.move_down(blankTile);
-		blankTile.tile_update_down();
-	}
-
-	previousChoice = choice;
-
-	//if blank tile is at [1][1]
-	//	Board_if_move_up = myBoard;
-	//	Board_if_move_up.move_up(blankTile);
-	//  Board_if_move_left = myBoard;
-	//  Board_if_move_left.move_left(blankTile);
-	//  Board_if_move_down = myBoard;
-	//  Board_if_move_down.move_down(blankTile);
-	//  Board_if_move_right = myBoard;
-	//  Board_if_move_right.move_right(blankTile);
-
-	//if blank tile ((x == 0 || x == 2) && (y == 0 || y == 2)    //blank tile is at a corner
-	//  
-	myBoard.print_top_row();
-	myBoard.print_mid_row();
-	myBoard.print_bottom_row();
-
-	blankTile = myBoard.move_down(blankTile);
-	myBoard.print_top_row();
-	myBoard.print_mid_row();
-	myBoard.print_bottom_row();
-
-	blankTile = myBoard.move_up(blankTile);
-	myBoard.print_top_row();
-	myBoard.print_mid_row();
-	myBoard.print_bottom_row();
-
-	blankTile = myBoard.move_right(blankTile);
-	myBoard.print_top_row();
-	myBoard.print_mid_row();
-	myBoard.print_bottom_row();
-
-	blankTile = myBoard.move_left(blankTile);
-	myBoard.print_top_row();
-	myBoard.print_mid_row();
-	myBoard.print_bottom_row();
 	return -1;
 }
