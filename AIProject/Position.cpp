@@ -1,4 +1,9 @@
 #include "Position.h"
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int Position::dist_lookup_table[3][3][9];
 
 Position::Position() {
 	this->x_pos = -1;
@@ -10,10 +15,11 @@ Position::Position(int x, int y) {
 	this->y_pos = y;
 }
 
-int Position::dist(int)
+int Position::dist()
 {
-	return 0;
+	return dist_lookup_table[x_pos][y_pos][val];
 }
+
 
 void Position::set_pos(int x, int y, int value) {
 	this->x_pos = x;
@@ -32,3 +38,100 @@ int Position::get_tile_y_value() {
 int Position::get_tile_value() {
 	return this->val;
 }
+
+void Position::tile_update_left() {
+	x_pos -= 1;
+}
+void Position::tile_update_right() {
+	x_pos += 1;
+}
+void Position::tile_update_up() {
+	y_pos -= 1;
+}
+void Position::tile_update_down() {
+	y_pos += 1;
+}
+void Position::init_dist_lookup_table() {
+	dist_lookup_table[0][0][1] = 0;
+	dist_lookup_table[1][0][1] = 1;
+	dist_lookup_table[2][0][1] = 2;
+	dist_lookup_table[0][1][1] = 1;
+	dist_lookup_table[1][1][1] = 2;
+	dist_lookup_table[2][1][1] = 3;
+	dist_lookup_table[0][2][1] = 2;
+	dist_lookup_table[1][2][1] = 3;
+	dist_lookup_table[2][2][1] = 4;
+	dist_lookup_table[0][0][2] = 1;
+	dist_lookup_table[1][0][2] = 2;
+	dist_lookup_table[2][0][2] = 3;
+	dist_lookup_table[0][1][2] = 0;
+	dist_lookup_table[1][1][2] = 1;
+	dist_lookup_table[2][1][2] = 2;
+	dist_lookup_table[0][2][2] = 1;
+	dist_lookup_table[1][2][2] = 2;
+	dist_lookup_table[2][2][2] = 3;
+	dist_lookup_table[0][0][3] = 2;
+	dist_lookup_table[1][0][3] = 3;
+	dist_lookup_table[2][0][3] = 4;
+	dist_lookup_table[0][1][3] = 1;
+	dist_lookup_table[1][1][3] = 2;
+	dist_lookup_table[2][1][3] = 3;
+	dist_lookup_table[0][2][3] = 0;
+	dist_lookup_table[1][2][3] = 1;
+	dist_lookup_table[2][2][3] = 2;
+	dist_lookup_table[0][0][4] = 1;
+	dist_lookup_table[1][0][4] = 0;
+	dist_lookup_table[2][0][4] = 1;
+	dist_lookup_table[0][1][4] = 2;
+	dist_lookup_table[1][1][4] = 1;
+	dist_lookup_table[2][1][4] = 2;
+	dist_lookup_table[0][2][4] = 3;
+	dist_lookup_table[1][2][4] = 2;
+	dist_lookup_table[2][2][4] = 3;
+	dist_lookup_table[0][0][5] = 2;
+	dist_lookup_table[1][0][5] = 1;
+	dist_lookup_table[2][0][5] = 2;
+	dist_lookup_table[0][1][5] = 1;
+	dist_lookup_table[1][1][5] = 0;
+	dist_lookup_table[2][1][5] = 1;
+	dist_lookup_table[0][2][5] = 2;
+	dist_lookup_table[1][2][5] = 1;
+	dist_lookup_table[2][2][5] = 2;
+	dist_lookup_table[0][0][6] = 3;
+	dist_lookup_table[1][0][6] = 2;
+	dist_lookup_table[2][0][6] = 3;
+	dist_lookup_table[0][1][6] = 2;
+	dist_lookup_table[1][1][6] = 1;
+	dist_lookup_table[2][1][6] = 2;
+	dist_lookup_table[0][2][6] = 1;
+	dist_lookup_table[1][2][6] = 0;
+	dist_lookup_table[2][2][6] = 1;
+	dist_lookup_table[0][0][7] = 2;
+	dist_lookup_table[1][0][7] = 1;
+	dist_lookup_table[2][0][7] = 0;
+	dist_lookup_table[0][1][7] = 3;
+	dist_lookup_table[1][1][7] = 2;
+	dist_lookup_table[2][1][7] = 1;
+	dist_lookup_table[0][2][7] = 4;
+	dist_lookup_table[1][2][7] = 3;
+	dist_lookup_table[2][2][7] = 2;
+	dist_lookup_table[0][0][8] = 3;
+	dist_lookup_table[1][0][8] = 2;
+	dist_lookup_table[2][0][8] = 1;
+	dist_lookup_table[0][1][8] = 2;
+	dist_lookup_table[1][1][8] = 1;
+	dist_lookup_table[2][1][8] = 0;
+	dist_lookup_table[0][2][8] = 3;
+	dist_lookup_table[1][2][8] = 2;
+	dist_lookup_table[2][2][8] = 1;
+	dist_lookup_table[0][0][0] = 4;
+	dist_lookup_table[1][0][0] = 3;
+	dist_lookup_table[2][0][0] = 2;
+	dist_lookup_table[0][1][0] = 3;
+	dist_lookup_table[1][1][0] = 2;
+	dist_lookup_table[2][1][0] = 1;
+	dist_lookup_table[0][2][0] = 2;
+	dist_lookup_table[1][2][0] = 1;
+	dist_lookup_table[2][2][0] = 0;
+}
+
