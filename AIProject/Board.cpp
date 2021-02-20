@@ -9,7 +9,7 @@ Board::Board(int board_values[HEIGHT][WIDTH]) {
 	int j = 0;
 	for (j = 0; j < HEIGHT; j++) {
 		for (i = 0; i < WIDTH; i++) {
-			this->currentBoard[i][j].set_value(board_values[i][j]);
+			this->currentBoard[i][j].set_pos(i, j,board_values[i][j]);
 		}
 	}
 }
@@ -251,6 +251,11 @@ Direction Board::get_last_move() {
 }
 
 int Board::get_board_total_distance() {
+
+	/*
+		for (j = 0; j < HEIGHT; j++) {
+		for (i = 0; i < WIDTH; i++) {
+	*/
 	return currentBoard[0][0].dist() + 
 		currentBoard[0][1].dist() + 
 		currentBoard[0][2].dist() +

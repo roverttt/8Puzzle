@@ -63,7 +63,7 @@ vector<Node> expand(Node n) {
 Node general_search(Board problem_initial_state, vector<Node> (*queueing_function)(vector<Node> my_heap, vector<Node> expand_result)) {
 											//function general-search(problem, QUEUEING-FUNCTION)
 	int start_g_n = 0;
-	int start_h_n = problem_initial_state.get_board_total_distance();
+	int start_h_n = 0;
 	Node Initial_Node = Node(start_g_n, start_h_n, problem_initial_state);
 	vector<Node> nodes;
 	Node curr_node = Initial_Node;
@@ -79,22 +79,27 @@ Node general_search(Board problem_initial_state, vector<Node> (*queueing_functio
 			//return an error node ex.Node(-1, -1, Board());
 		}
 
-		curr_node = nodes.back();
+		curr_node = nodes.front();
 		pop_heap(nodes.begin(), nodes.end(), Node_rank_greater_than());		//node = REMOVE-FRONT(nodes) 
 		nodes.pop_back();
 		curr_distance = curr_node.current_board.get_board_total_distance();
 		if (curr_distance == 0) {											//if problem.GOAL-TEST(node.STATE) succeeds then return node
+			cout << "Goal!!!!" << endl;
+			cout << endl;
+			cout << "This search algorithm expanded a total of " << nodes_expanded << " nodes." << endl;
+			cout << "The max number of nodes in the queue at any point in time was " << max_heap_size << "." << endl;
+			cout << "The depth of the goal node was " << curr_node.g_n << "." << endl;
 			return curr_node;
 		}
-		nodes = (*queueing_function)(nodes, expand(curr_node));
-																			//nodes = QUEUEING - FUNCTION(nodes, EXPAND(node, problem.OPERATORS))
+		vector<Node> nodes_from_expansion = expand(curr_node);
+		nodes = (*queueing_function)(nodes, nodes_from_expansion);				//nodes = QUEUEING - FUNCTION(nodes, EXPAND(node, problem.OPERATORS))
+	
 	}
 	// Goal_TEST
 }
 vector<Node> uniform_cost(vector<Node> nodes,vector<Node> nodes_from_expansion) {
 
 	while (!nodes_from_expansion.empty()) {
-		int new_h_n = nodes_from_expansion.back().current_board.get_board_total_distance();
 		nodes_from_expansion.back().h_n = 0;
 		nodes.push_back(nodes_from_expansion.back());
 		if (nodes.size() > max_heap_size) {
@@ -163,7 +168,7 @@ int main() {
 	dist_of_choice_right = 9999;
 
 	cout << "Welcome to Trevor Cappon's 8 Puzzle Solver" << endl;
-	cout << "Type “1” to use a default puzzle, or “2” to enter your own puzzle." << endl;
+	cout << "Type 1 to use a default puzzle, or 2 to enter your own puzzle." << endl;
 	cout << "Enter your puzzle, use a zero to represent the blank" << endl;
 
 	for (int row = 0; row < HEIGHT; row++) {
@@ -195,7 +200,7 @@ int main() {
 		else {
 			cout << "Please enter 1, 2, or 3" << endl;
 		}
-		solution = general_search(myBoard, queueing_function);
+		solution = general_search(Board(board_values), queueing_function);
 	}
 
 

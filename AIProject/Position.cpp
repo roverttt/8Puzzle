@@ -1,4 +1,5 @@
 #include "Position.h"
+#include "Board.h"
 #include <cstdlib>
 #include <iostream>
 using namespace std;
@@ -17,7 +18,18 @@ Position::Position(int x, int y) {
 
 int Position::dist()
 {
-	return dist_lookup_table[x_pos][y_pos][val];
+	int solution_x;
+	int solution_y;
+	if (val == 0) {
+		solution_x = WIDTH - 1;
+		solution_y = HEIGHT - 1;
+	}
+	else {
+		solution_x = (val - 1) % WIDTH;
+		solution_y = (val - 1) / WIDTH;
+	}
+
+	return abs(this->x_pos - solution_x) + abs(this->y_pos - solution_y);
 }
 
 
