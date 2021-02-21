@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Board::Board(int board_values[HEIGHT][WIDTH]) {
+Board::Board(int board_values[HEIGHT][WIDTH]) {		//constructor for board taking board_values which is created from user input in main.cpp
 	int i = 0;
 	int j = 0;
 	for (j = 0; j < HEIGHT; j++) {
@@ -13,12 +13,8 @@ Board::Board(int board_values[HEIGHT][WIDTH]) {
 		}
 	}
 }
-//Board::Board(int initialValues[3][3] )
-//{
-//
-//}
 
-bool Board::can_move(Direction dir) {
+bool Board::can_move(Direction dir) {			//checks if the blank_tile of the current_board can be moved in a specified direction
 	Position blank_tile = get_blank();
 	switch (dir) {
 	case UP:
@@ -63,13 +59,13 @@ bool Board::can_move(Direction dir) {
 }
 
 
-void Board::swap_board_values(Position pos1, Position pos2) {
+void Board::swap_board_values(Position pos1, Position pos2) {		//swaps the board values of 2 specified tile positions
 	this->swapTempValue = this->currentBoard[pos1.get_tile_x_value()][pos1.get_tile_y_value()].get_tile_value();
 	this->currentBoard[pos1.get_tile_x_value()][pos1.get_tile_y_value()].set_value(pos2.get_tile_value());
 	this->currentBoard[pos2.get_tile_x_value()][pos2.get_tile_y_value()].set_value(this->swapTempValue);
 }
 
-Position Board::move_up(Position blank_tile) {
+Position Board::move_up(Position blank_tile) {			// moves the blank tile up in current board and returns the new blank tile position
 	if (blank_tile.get_tile_y_value() > 0) {
 		this->swap_board_values(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value())][(blank_tile.get_tile_y_value() - 1)]);
 		last_direction = UP;
@@ -79,7 +75,7 @@ Position Board::move_up(Position blank_tile) {
 		return Position();
 	}
 }
-Position Board::move_down(Position blank_tile) {
+Position Board::move_down(Position blank_tile) {		// moves the blank tile down in current board and returns the new blank tile position
 	if (blank_tile.get_tile_y_value() < HEIGHT - 1) {
 		this->swap_board_values(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value())][(blank_tile.get_tile_y_value() + 1)]);
 		last_direction = DOWN;
@@ -89,7 +85,7 @@ Position Board::move_down(Position blank_tile) {
 		return Position();
 	}
 }
-Position Board::move_left(Position blank_tile) {
+Position Board::move_left(Position blank_tile) {		// moves the blank tile left in current board and returns the new blank tile position
 	if (blank_tile.get_tile_x_value() > 0) {
 		this->swap_board_values(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value() - 1)][(blank_tile.get_tile_y_value())]);
 		last_direction = LEFT;
@@ -99,7 +95,7 @@ Position Board::move_left(Position blank_tile) {
 		return Position();
 	}
 }
-Position Board::move_right(Position blank_tile) {
+Position Board::move_right(Position blank_tile) {		// moves the blank tile right in current board and returns the new blank tile position
 	if (blank_tile.get_tile_x_value() < WIDTH - 1) {
 		this->swap_board_values(blank_tile, this->currentBoard[(blank_tile.get_tile_x_value() + 1)][(blank_tile.get_tile_y_value())]);
 		last_direction = RIGHT;
@@ -110,36 +106,7 @@ Position Board::move_right(Position blank_tile) {
 	}
 }
 
-void Board::print_top_row() {
-	int y = 0;
 
-	for (int x = 0; x < 3; x++)
-	{
-		Position positionInRow = currentBoard[x][y];
-		cout << positionInRow.get_tile_value() << " ";
-	}
-	cout << "\n";
-}
-void Board::print_mid_row() {
-	int y = 1;
-
-	for (int x = 0; x < 3; x++)
-	{
-		Position positionInRow = currentBoard[x][y];
-		cout << positionInRow.get_tile_value() << " ";
-	}
-	cout << "\n";
-}
-void Board::print_bottom_row() {
-	int y = 2;
-
-	for (int x = 0; x < 3; x++)
-	{
-		Position positionInRow = currentBoard[x][y];
-		cout << positionInRow.get_tile_value() << " ";
-	}
-	cout << "\n";
-}
 
 Position Board::get_blank() {
 	int flag = 0;
@@ -230,17 +197,21 @@ Direction Board::get_last_move() {
 
 int Board::get_board_total_distance() {
 
-	/*
-		for (j = 0; j < HEIGHT; j++) {
-		for (i = 0; i < WIDTH; i++) {
-	*/
-	return currentBoard[0][0].dist() + 
-		currentBoard[0][1].dist() + 
-		currentBoard[0][2].dist() +
-		currentBoard[1][0].dist() + 
-		currentBoard[1][1].dist() + 
-		currentBoard[1][2].dist() +
-		currentBoard[2][0].dist() + 
-		currentBoard[2][1].dist() + 
-		currentBoard[2][2].dist();
+	int total_dist = 0;
+	for (int j = 0; j < HEIGHT; j++) {
+		for (int i = 0; i < WIDTH; i++) {
+			total_dist += currentBoard[i][j].dist();
+		}
+	}
+	return total_dist;
+	
+	//return currentBoard[0][0].dist() + 
+	//	currentBoard[0][1].dist() + 
+	//	currentBoard[0][2].dist() +
+	//	currentBoard[1][0].dist() + 
+	//	currentBoard[1][1].dist() + 
+	//	currentBoard[1][2].dist() +
+	//	currentBoard[2][0].dist() + 
+	//	currentBoard[2][1].dist() + 
+	//	currentBoard[2][2].dist();
 }

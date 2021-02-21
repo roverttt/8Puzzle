@@ -14,9 +14,6 @@ public:
 	Position move_left(Position);
 	Position move_right(Position);
 	bool can_move(Direction);
-	void print_top_row();
-	void print_mid_row();
-	void print_bottom_row();
 	Position get_blank();
 	Position get_position_of_board_tile(int, int);
 	int get_board_total_distance();
